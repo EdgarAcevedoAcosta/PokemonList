@@ -41,6 +41,6 @@ fun pokemonRow(pokemon: Pokemon){
 
 @Preview(showBackground = true)
 @Composable
-fun PokemonRow(bulbasaur: Pokemon){
-    
+fun PokemonRow(){
+    pokemonRow(bulbasuar)
 }
