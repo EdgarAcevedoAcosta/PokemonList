@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 fun MenuPokedex(pokemonList: List<Pokemon>, innerPadding: PaddingValues){
     LazyColumn() {
         items(pokemonList){ pokemon ->
-            PokemonRow(pokemon)
+            polemonRow(pokemon)
 
         }
     }
