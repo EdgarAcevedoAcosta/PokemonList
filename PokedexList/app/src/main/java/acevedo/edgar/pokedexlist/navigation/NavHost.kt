@@ -6,12 +6,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import acevedo.edgar.pokedexlist.model.data.getPokemonByNumber
+import acevedo.edgar.pokedexlist.view.screen.LoginScreen
 import acevedo.edgar.pokedexlist.view.screen.MenuPokedexScreen
 import acevedo.edgar.pokedexlist.view.screen.PokemonDetailsScreen
 import acevedo.edgar.pokedexlist.view.screen.PokemonHuntScreen
 
 @Composable
 fun MyApp(innerPadding: PaddingValues){
+    val navigateToMenu={
+        navControl.navigate
+    }
     val navControl= rememberNavController()
     NavHost(navControl, startDestination= PokemonList){
         composable<PokemonList>{
@@ -28,6 +32,9 @@ fun MyApp(innerPadding: PaddingValues){
 
         composable<PokemonHunt> {
             PokemonHuntScreen(innerPadding)
+        }
+        composable<Login>{
+            LoginScreen(innerPadding, navigateToMenu)
         }
     }
 }
