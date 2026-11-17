@@ -1,11 +1,13 @@
 package acevedo.edgar.pokedexlist.viewmodel
 
-import acevedo.edgar.pokedexlist.model.data.pokemonList
+
+import acevedo.edgar.pokedexlist.data.pokemonList
+import acevedo.edgar.pokedexlist.domain.Pokemon
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import acevedo.edgar.pokedexlist.model.domain.Pokemon
+
 
 class PokemonViewModel: ViewModel(){
     var wildPokemon by mutableStateOf<Pokemon?>(null)
@@ -22,6 +24,7 @@ class PokemonViewModel: ViewModel(){
         wildPokemon= pokemonList.random()
         isPokemonCaptured=false
     }
+    var captured by mutableStateOf(false)
     fun capturarPokemon(){
         wildPokemon?.let {
             var isCapturated=(1..2).random()

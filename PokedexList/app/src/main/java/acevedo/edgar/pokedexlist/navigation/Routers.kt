@@ -2,6 +2,10 @@ package acevedo.edgar.pokedexlist.navigation
 
 import kotlinx.serialization.Serializable
 
+
+@Serializable
+object Login
+
 @Serializable
 object PokemonList;
 
@@ -12,4 +16,7 @@ data class PokemonDetail(val pokemon: Int)
 object PokemonHunt
 
 @Serializable
-object Login
+object Profile
+
+@Serializable
+object AddPokemon
