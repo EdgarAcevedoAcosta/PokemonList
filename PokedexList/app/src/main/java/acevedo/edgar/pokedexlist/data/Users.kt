@@ -1,24 +1,59 @@
 package acevedo.edgar.pokedexlist.data
 
 import acevedo.edgar.pokedexlist.domain.User
+import acevedo.edgar.pokedexlist.preferencias.UserPreferences
+import android.content.Context
 
-val validUsers=listOf<User>(
-    User("alma@mail.com","12345","Alma Chavez"),
-    User("cazo@mail.com","48565","Alma Ruiz"),
-    User("maryblog@mail.com","12513","Maty Blogs")
-)
+class Users(private val context: Context) {
 
-fun getUserByMail(mail: String): User?{
-    val users=validUsers.filter { it.email.equals(mail, ignoreCase = true) }
-    return if (users.isEmpty()) null else users.first()
-}
+    private val sharedPreferences = context.getSharedPreferences(
+        UserPreferences.ARCHIVO,
+        Context.MODE_PRIVATE
+    )
 
-fun login(user: String, password: String): User?{
-    val u=getUserByMail(user)
-    u?.let {
-        if(u.password.equals(password)){
-            return u
+    private val usersList = listOf(
+        User("rene@correo.com", "rene123", "Rene"),
+        User("mario@cerulean.com", "mario123", "Mario"),
+        User("juan@pewter.com", "juan123", "Juan")
+    )
+
+    fun getUserByMail(mail: String): User? {
+        return usersList.find { it.email.equals(mail, ignoreCase = true) }
+    }
+
+    fun loginService(email: String, pass: String): User? {
+        val user = getUserByMail(email)
+        return if (user != null && user.password == pass) user else null
+    }
+
+    fun saveUser(user: String, name: String) {
+        sharedPreferences.edit().apply {
+            putString(UserPreferences.USER, user)
+            putString(UserPreferences.USERNAME, name)
+            apply()
         }
     }
-    return null
+
+    fun isLoggedIn(): Boolean {
+        val email = sharedPreferences.getString(UserPreferences.USER, null)
+        val name = sharedPreferences.getString(UserPreferences.USERNAME, null)
+        return !email.isNullOrEmpty() && !name.isNullOrEmpty()
+    }
+
+    fun getCurrentUser(): User? {
+        val email = sharedPreferences.getString(UserPreferences.USER, null)
+        val name = sharedPreferences.getString(UserPreferences.USERNAME, null)
+        if (!email.isNullOrEmpty()) {
+            return getUserByMail(email) ?: User(email, "", name ?: "")
+        }
+        return null
+    }
+
+    fun logout() {
+        sharedPreferences.edit().apply {
+            putString(UserPreferences.USER, null)
+            putString(UserPreferences.USERNAME, null)
+            apply()
+        }
+    }
 }

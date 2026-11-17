@@ -1,6 +1,8 @@
 package acevedo.edgar.pokedexlist.data.sqllite
 
+import acevedo.edgar.pokedexlist.data.interfaces.IPokemonDAO
 import acevedo.edgar.pokedexlist.domain.Pokemon
+import android.database.sqlite.SQLiteConstraintException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
