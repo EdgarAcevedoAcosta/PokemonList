@@ -26,3 +26,16 @@ val pokemonList = listOf(
         R.drawable.pikachu
     )
 )
+fun showPokemonList(): List<Pokemon>{
+    return pokemonList
+}
+
+fun getFavoritePokemons(): List<Pokemon>{
+    return pokemonList.filter {
+        it.favorite == true
+    }
+}
+
+fun getPokemonByNumber(id: Int): Pokemon{
+    return pokemonList.filter { it.number == id }.first()
+}

@@ -1,0 +1,45 @@
+package acevedo.edgar.pokedexlist.preferencias
+
+import acevedo.edgar.pokedexlist.domain.Pokemon
+import android.content.Context
+import androidx.datastore.core.CorruptionException
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.Serializer
+import java.io.InputStream
+
+
+object PokemonSerializer : Serializer<Pokemon> {
+
+    override val defaultValue: Pokemon = Pokemon(
+        name = "",
+        number = -1,
+        type = "",
+        description = "d",
+        height = 0f,
+        weight = 0f,
+        favorite = false,
+        ability = "",
+        image = -1
+    )
+
+    override suspend fun readFrom(input: InputStream): Pokemon {
+        return try {
+            Json.decodeFromString(
+                Pokemon.serializer(),
+                input.readBytes().decodeToString()
+            )
+        } catch (e: SerializationException) {
+            throw CorruptionException("No se pudo leer el Json", e)
+        }
+    }
+
+    override suspend fun writeTo(
+        t: Pokemon,
+        output: OutputStream
+    ) {
+        output.write(
+            Json.encodeToString(Pokemon.serializer(), t)
+                .encodeToByteArray()
+        )
+    }
+}
