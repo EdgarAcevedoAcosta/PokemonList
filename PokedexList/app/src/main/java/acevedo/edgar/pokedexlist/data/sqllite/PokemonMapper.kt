@@ -4,7 +4,6 @@ import acevedo.edgar.pokedexlist.R
 import acevedo.edgar.pokedexlist.domain.Pokemon
 import android.content.ContentValues
 import android.database.Cursor
-import com.google.firestore.v1.Cursor
 
 class PokemonMapper {
     fun getPokemon(cursor: Cursor): Pokemon {
